@@ -26,8 +26,6 @@ data class RapidRiseRule(
             Pollutant.HUMIDITY -> current.avgHumidity
             Pollutant.PRESSURE -> current.avgPressure
             Pollutant.ECO2 -> current.avgEco2
-            Pollutant.RAW_H2 -> current.avgRawh2
-            Pollutant.RAW_ETHANOL -> current.avgRawethanol
             else -> return null
         }
 
@@ -37,8 +35,6 @@ data class RapidRiseRule(
             Pollutant.HUMIDITY -> last.avgHumidity
             Pollutant.PRESSURE -> last.avgPressure
             Pollutant.ECO2 -> last.avgEco2
-            Pollutant.RAW_H2 -> last.avgRawh2
-            Pollutant.RAW_ETHANOL -> last.avgRawethanol
             else -> return null
         }
 
