@@ -16,7 +16,7 @@ data class RapidRiseRule(
         history: List<AirQualityData>,
     ): AnomalyResult? {
 
-        if (history.isEmpty()) return null;
+        if (history.isEmpty()) return null
 
         val last = history.maxBy { it.measuredAt }
 
@@ -26,7 +26,6 @@ data class RapidRiseRule(
             Pollutant.HUMIDITY -> current.avgHumidity
             Pollutant.PRESSURE -> current.avgPressure
             Pollutant.ECO2 -> current.avgEco2
-            else -> return null
         }
 
         val lastValue = when (pollutant) {
@@ -35,7 +34,6 @@ data class RapidRiseRule(
             Pollutant.HUMIDITY -> last.avgHumidity
             Pollutant.PRESSURE -> last.avgPressure
             Pollutant.ECO2 -> last.avgEco2
-            else -> return null
         }
 
         val diff = currentValue - lastValue
