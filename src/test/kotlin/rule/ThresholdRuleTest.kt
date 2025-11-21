@@ -23,9 +23,7 @@ class ThresholdRuleTest : StringSpec({
             avgHumidity = 40.0,
             avgPressure = 1013.0,
             avgTvoc = 600.0, //임계값 초과
-            avgEco2 = 500.0,
-            avgRawh2 = 100.0,
-            avgRawethanol = 100.0
+            avgEco2 = 500.0
         )
 
         val result = rule.evaluate(current, emptyList())
@@ -48,9 +46,7 @@ class ThresholdRuleTest : StringSpec({
             avgHumidity = 40.0,
             avgPressure = 1013.0,
             avgTvoc = 480.0,     // 임계값 이하
-            avgEco2 = 500.0,
-            avgRawh2 = 100.0,
-            avgRawethanol = 100.0
+            avgEco2 = 500.0
         )
 
         val result = rule.evaluate(current, emptyList())

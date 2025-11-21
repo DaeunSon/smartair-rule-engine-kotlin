@@ -19,10 +19,10 @@ class RuleEngineTest : StringSpec({
 
         val baseTime = LocalDateTime.now()
         val history = listOf(
-            AirQualityData("sensor-1", baseTime.minusMinutes(1), 24.0, 40.0, 1013.0, 300.0, 500.0, 100.0, 100.0)
+            AirQualityData("sensor-1", baseTime.minusMinutes(1), 24.0, 40.0, 1013.0, 300.0, 500.0)
         )
 
-        val current = AirQualityData("sensor-1", baseTime, 24.0, 40.0, 1013.0, 700.0, 500.0, 100.0, 100.0)
+        val current = AirQualityData("sensor-1", baseTime, 24.0, 40.0, 1013.0, 700.0, 500.0)
 
         val results = engine.evaluate(current, history)
 
