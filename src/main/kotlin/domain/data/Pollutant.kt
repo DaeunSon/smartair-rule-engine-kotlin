@@ -27,16 +27,6 @@ enum class Pollutant(
     ECO2(
         label = "eCO2",
         valueExtractor = { it.avgEco2 }
-    ),
-
-    RAW_H2(
-        label = "Raw H2",
-        valueExtractor = { it.avgRawh2 }
-    ),
-
-    RAW_ETHANOL(
-        label = "Raw Ethanol",
-        valueExtractor = { it.avgRawethanol }
     );
 
     /**
