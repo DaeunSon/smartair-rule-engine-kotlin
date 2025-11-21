@@ -14,4 +14,10 @@ data class AirQualityData(
     init {
         require(sensorId.isNotBlank()) { "sensorId는 비어있을 수 없습니다." }
     }
+
+    fun diff(other: AirQualityData, pollutant: Pollutant): Double {
+        val currentValue = pollutant.getValue(this)
+        val otherValue = pollutant.getValue(other)
+        return currentValue - otherValue
+    }
 }
