@@ -6,7 +6,7 @@ import com.daeun.smartair.domain.report.AnomalyResult
 import com.daeun.smartair.domain.report.AnomalyType
 
 data class RapidRiseRule(
-    override val name: String = "RAPID_RISE_${'$'}{pollutant.name}",
+    override val name: String = "RAPID_RISE",
     val pollutant: Pollutant,
     val delta: Double
 ) : AnomalyRule {
@@ -19,31 +19,17 @@ data class RapidRiseRule(
         if (history.isEmpty()) return null
 
         val last = history.maxBy { it.measuredAt }
+        val diff = current.diff(last, pollutant)
 
-        val currentValue = when (pollutant) {
-            Pollutant.TVOC -> current.avgTvoc
-            Pollutant.TEMPERATURE -> current.avgTemperature
-            Pollutant.HUMIDITY -> current.avgHumidity
-            Pollutant.PRESSURE -> current.avgPressure
-            Pollutant.ECO2 -> current.avgEco2
+        if (diff >= delta) {
+            return AnomalyResult(
+                pollutant = pollutant,
+                value = diff,
+                type = AnomalyType.RAPID_RISE,
+                message = "${pollutant.label} 값이 짧은 시간 동안 $diff 증가했습니다."
+            )
         }
 
-        val lastValue = when (pollutant) {
-            Pollutant.TVOC -> last.avgTvoc
-            Pollutant.TEMPERATURE -> last.avgTemperature
-            Pollutant.HUMIDITY -> last.avgHumidity
-            Pollutant.PRESSURE -> last.avgPressure
-            Pollutant.ECO2 -> last.avgEco2
-        }
-
-        val diff = currentValue - lastValue
-        if (diff < delta) return null
-
-        return AnomalyResult(
-            pollutant = pollutant,
-            type = AnomalyType.RAPID_RISE,
-            value = diff,
-            message = "$pollutant 값이 최근 측정치 대비 $delta 이상 급격히 상승했습니다. (이전: $lastValue, 현재: $currentValue)"
-        )
+        return null;
     }
 }
