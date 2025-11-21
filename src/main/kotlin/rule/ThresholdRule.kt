@@ -17,12 +17,9 @@ data class ThresholdRule (
     ): AnomalyResult? {
         val value = when (pollutant) {
             Pollutant.TVOC -> current.avgTvoc
-            Pollutant.TEMPERATURE -> current.avgTemperature
-            Pollutant.HUMIDITY -> current.avgHumidity
-            Pollutant.PRESSURE -> current.avgPressure
             Pollutant.ECO2 -> current.avgEco2
-            Pollutant.RAW_H2 -> current.avgRawh2
-            Pollutant.RAW_ETHANOL -> current.avgRawethanol
+            // 다른 오염물질은 ThresholdRule에서 처리하지 않으므로 즉시 종료
+            Pollutant.TEMPERATURE, Pollutant.HUMIDITY, Pollutant.PRESSURE -> return null
         }
 
         if (value <= limit) return null

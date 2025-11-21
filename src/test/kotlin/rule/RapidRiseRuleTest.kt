@@ -19,18 +19,16 @@ class RapidRiseRuleTest : StringSpec({
         val baseTime = LocalDateTime.now()
 
         val history = listOf(
-            AirQualityData("sensor-1", baseTime.minusMinutes(5), 24.0, 40.0, 1013.0, 200.0, 500.0, 100.0, 100.0),
-            AirQualityData("sensor-1", baseTime.minusMinutes(3), 24.0, 40.0, 1013.0, 250.0, 500.0, 100.0, 100.0),
-            AirQualityData("sensor-1", baseTime.minusMinutes(1), 24.0, 40.0, 1013.0, 300.0, 500.0, 100.0, 100.0),
+            AirQualityData("sensor-1", baseTime.minusMinutes(5), 24.0, 40.0, 1013.0, 200.0, 500.0),
+            AirQualityData("sensor-1", baseTime.minusMinutes(3), 24.0, 40.0, 1013.0, 250.0, 500.0),
+            AirQualityData("sensor-1", baseTime.minusMinutes(1), 24.0, 40.0, 1013.0, 300.0, 500.0),
         )
 
         val current = AirQualityData(
             "sensor-1", baseTime,
             24.0, 40.0, 1013.0,
             avgTvoc = 700.0, // delta = 400
-            avgEco2 = 500.0,
-            avgRawh2 = 100.0,
-            avgRawethanol = 100.0
+            avgEco2 = 500.0
         )
 
         val result = rule.evaluate(current, history)
@@ -48,16 +46,14 @@ class RapidRiseRuleTest : StringSpec({
         val baseTime = LocalDateTime.now()
 
         val history = listOf(
-            AirQualityData("sensor-1", baseTime.minusMinutes(1), 24.0, 40.0, 1013.0, 450.0, 500.0, 100.0, 100.0)
+            AirQualityData("sensor-1", baseTime.minusMinutes(1), 24.0, 40.0, 1013.0, 450.0, 500.0)
         )
 
         val current = AirQualityData(
             "sensor-1", baseTime,
             24.0, 40.0, 1013.0,
             avgTvoc = 700.0,   // delta = 250 < 300
-            avgEco2 = 500.0,
-            avgRawh2 = 100.0,
-            avgRawethanol = 100.0
+            avgEco2 = 500.0
         )
 
         val result = rule.evaluate(current, history)
