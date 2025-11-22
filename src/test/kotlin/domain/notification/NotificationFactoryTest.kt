@@ -47,8 +47,40 @@ class NotificationFactoryTest : StringSpec({
             description = "5분 내 TVOC가 급상승했습니다."
         )
 
-        val notification = NotificationFactory.from(report, userId = 101L)
+        val userId = 101L
+        val createdAt = LocalDateTime.parse("2025-05-13T15:45:00")
 
+        val notification = NotificationFactory.from(report, userId, createdAt)
+
+        notification.userId shouldBe userId
         notification.level shouldBe NotificationLevel.DANGER
+        notification.title shouldBe "공기질 급상승 이상 감지"
+        notification.relatedAnomalyId shouldBe 2L 
+        notification.anomalySnapshot shouldBe report
+        notification.createdAt shouldBe createdAt
+    }
+
+    "SENSOR_ERROR 리포트는 INFO 레벨 알림을 생성한다" {
+        val report = AnomalyReport(
+            id = 3L,
+            sensorId = "sensor-2",
+            anomalyTimeStamp = LocalDateTime.parse("2025-05-13T17:00:00"),
+            pollutant = Pollutant.TEMPERATURE,
+            pollutantValue = -999.0,  // 센서 오류로 인한 비정상 값
+            type = AnomalyType.SENSOR_ERROR,
+            description = "센서에서 비정상적인 데이터가 감지되었습니다."
+        )
+
+        val userId = 102L
+        val createdAt = LocalDateTime.parse("2025-05-13T17:00:00")
+
+        val notification = NotificationFactory.from(report, userId, createdAt)
+
+        notification.userId shouldBe userId
+        notification.level shouldBe NotificationLevel.INFO
+        notification.title shouldBe "센서 오류 감지"
+        notification.relatedAnomalyId shouldBe 3L
+        notification.anomalySnapshot shouldBe report
+        notification.createdAt shouldBe createdAt
     }
 })
