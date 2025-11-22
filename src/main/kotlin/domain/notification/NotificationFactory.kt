@@ -31,7 +31,6 @@ object NotificationFactory {
         when (type){
             AnomalyType.THRESHOLD_EXCEEDED -> "공기질 임계치 초과 감지"
             AnomalyType.RAPID_RISE -> "공기질 급상승 이상 감지"
-            AnomalyType.RAPID_DROP -> "공기질 급감 이상 감지"
             AnomalyType.SENSOR_ERROR -> "센서 오류 감지"
         }
 
