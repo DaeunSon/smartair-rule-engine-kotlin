@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.2.20"
+    application
 }
 
 group = "com.daeun.smartair"
@@ -19,7 +20,17 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    minHeapSize = "512m"
+    maxHeapSize = "2048m"
 }
 kotlin {
     jvmToolchain(17)
+}
+
+application {
+    mainClass.set("com.daeun.smartair.MainKt")
+}
+
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
 }
