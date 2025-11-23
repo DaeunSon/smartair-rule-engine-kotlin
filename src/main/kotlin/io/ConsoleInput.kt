@@ -8,9 +8,14 @@ class ConsoleInput {
     public fun readIntInput(prompt: String): Int {
         while(true){
             print(prompt)
-            val line = readlnOrNull()
+            val line = readLine()
 
-            val value = line?.toIntOrNull()
+            if (line == null) {
+                println("\n[Error] 입력 스트림이 종료되었습니다.")
+                throw IllegalStateException("입력 스트림이 종료되었습니다.")
+            }
+
+            val value = line.trim().toIntOrNull()
             if (value != null) return value
 
             println("[Error] 유효한 정수를 입력해주세요.")
@@ -23,9 +28,14 @@ class ConsoleInput {
     public fun readDoubleInput(prompt: String): Double {
         while (true) {
             print(prompt)
-            val line = readlnOrNull()
+            val line = readLine()
 
-            val value = line?.toDoubleOrNull()
+            if (line == null) {
+                println("\n[Error] 입력 스트림이 종료되었습니다.")
+                throw IllegalStateException("입력 스트림이 종료되었습니다.")
+            }
+
+            val value = line.trim().toDoubleOrNull()
             if (value != null) return value
 
             println("[Error] 유효한 실수를 입력해주세요.")
